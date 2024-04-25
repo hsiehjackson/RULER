@@ -1,0 +1,121 @@
+# Copyright (c) 2024, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+niah_single_1:
+  task: niah
+  args:
+    type_haystack: repeat
+    type_needle_k: words
+    type_needle_v: numbers
+    num_needle_k: 1
+    num_needle_v: 1
+    num_needle_q: 1
+
+niah_single_2:
+  task: niah
+  args:
+    type_haystack: essay
+    type_needle_k: words
+    type_needle_v: numbers
+    num_needle_k: 1
+    num_needle_v: 1
+    num_needle_q: 1
+
+niah_single_3:
+  task: niah
+  args:
+    type_haystack: essay
+    type_needle_k: words
+    type_needle_v: uuids
+    num_needle_k: 1
+    num_needle_v: 1
+    num_needle_q: 1
+
+niah_multikey_1:
+  task: niah
+  args:
+    type_haystack: essay
+    type_needle_k: words
+    type_needle_v: numbers
+    num_needle_k: 4
+    num_needle_v: 1
+    num_needle_q: 1
+
+niah_multikey_2:
+  task: niah
+  args:
+    type_haystack: needle
+    type_needle_k: words
+    type_needle_v: numbers
+    num_needle_k: 1
+    num_needle_v: 1
+    num_needle_q: 1
+
+niah_multikey_3:
+  task: niah
+  args:
+    type_haystack: needle
+    type_needle_k: uuids
+    type_needle_v: uuids
+    num_needle_k: 1
+    num_needle_v: 1
+    num_needle_q: 1
+
+niah_multivalue:
+  task: niah
+  args:
+    type_haystack: essay
+    type_needle_k: words
+    type_needle_v: numbers
+    num_needle_k: 1
+    num_needle_v: 4
+    num_needle_q: 1
+
+niah_multiquery:
+  task: niah
+  args:
+    type_haystack: essay
+    type_needle_k: words
+    type_needle_v: numbers
+    num_needle_k: 1
+    num_needle_v: 1
+    num_needle_q: 4
+
+vt:
+  task: variable_tracking
+  args:
+    num_chains: 1
+    num_hops: 4
+
+cwe:
+  task: common_words_extraction
+  args:
+    freq_cw: 30
+    freq_ucw: 3
+    num_cw: 10
+    
+fwe:
+  task: freq_words_extraction
+  args:
+    alpha: 2.0
+
+qa_1:
+  task: qa
+  args:
+    dataset: squad
+
+qa_2:
+  task: qa
+  args:
+    dataset: hotpotqa

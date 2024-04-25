@@ -17,8 +17,8 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 [ChatGLM](https://huggingface.co/THUDM/chatglm3-6b-128K) (6B)|128K|4K|<ins>87.8</ins>|83.4|78.6|69.9|56.0|42.0|69.6|62.0 (10th)|77.2 (10th)|
 [LWM](https://huggingface.co/LargeWorldModel/LWM-Text-Chat-1M) (7B)|1M|<4K|82.3|78.4|73.7|69.1|68.1|65.0|72.8|69.9 **(8th)**|75.7 **(11th)**|
 [Phi3](https://huggingface.co/microsoft/Phi-3-mini-128K-instruct) (3.8B)|128K|4K|<ins>86.7</ins>|78.1|75.6|70.3|58.9|43.3|68.8|62.2 **(9th)**|75.5 **(12th)**|
-[DBRX](https://huggingface.co/databricKs/dbrx-insruct) (36B/132B)|32K|8K|<ins>95.1</ins>|93.8|83.6|63.1|2.4|0.0|56.3|38.0 (13th)|74.7 (13th)|
-[Qwen](https://huggingface.co/Qwen/Qwen1.5-72B-Chat) (72B)|32K|8K|<ins>94.9</ins>|93.8|78.0|67.8|0.0|0.0|55.7|37.5 (14th)|74.0 (14th)|
+[DBRX](https://huggingface.co/databricKs/dbrx-insruct) (36B/132B)|32K|8K|<ins>95.1</ins>|<ins>93.8</ins>|83.6|63.1|2.4|0.0|56.3|38.0 (13th)|74.7 (13th)|
+[Qwen](https://huggingface.co/Qwen/Qwen1.5-72B-Chat) (72B)|32K|8K|<ins>94.9</ins>|<ins>93.8</ins>|78.0|67.8|0.0|0.0|55.7|37.5 (14th)|74.0 (14th)|
 [Together](https://huggingface.co/togethercomputer/Llama-2-7B-32K-insruct) (7B)|32K|4K|<ins>88.2</ins>|81.1|69.4|63.0|0.0|0.0|50.3|33.8 (15th)|66.7 (15th)|
 [LongChat](https://huggingface.co/lmsys/longchat-7b-v1.5-32K) (7B)|32K|<4K|84.7|79.9|70.8|59.3|0.0|0.0|49.1|33.1 (16th)|65.2 (16th)|
 [LongAlpaca](https://huggingface.co/YuKang/LongAlpaca-13B) (13B)| 32K|<4K|60.6|57.0|56.6|43.6|0.0|0.0|36.3|24.7 (17th)|47.9 (17th)|

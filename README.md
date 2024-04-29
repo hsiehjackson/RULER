@@ -12,7 +12,7 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 [Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-instruct-v0.1) (39B/141B)|64K|32K| <ins>95.6</ins>| <ins>94.9</ins>| <ins>93.4</ins>|<ins>90.9</ins>|84.7|31.7|81.9|73.5 **(6th)**|90.3 **(5th)**|
 [Yi](https://huggingface.co/01-ai/Yi-34B-200K) (34B)|200K|32K| <ins>93.3</ins>| <ins>92.2</ins>| <ins>91.3</ins>|<ins>87.5</ins>|83.2|77.3|87.5|84.8 **(4th)**|90.1 **(6th)**|
 [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-instruct-v0.1) (12.9B/46.7B)|32K|32K| <ins>94.9</ins>| <ins>92.1</ins>| <ins>92.5</ins>|<ins>85.9</ins>|72.4|44.5|80.4|72.8 (7th)|87.9 (7th)|
-[FILM-7B*](https://arxiv.org/pdf/2404.16811) (7B)|32K|32K|<ins>92.8</ins>|<ins>88.2</ins>|<ins>88.1</ins>|<ins>86.9</ins>|70.1|27.1|75.5|	66.4 **(9th)**|84.7 **(8th)**|
+[FILM*](https://arxiv.org/pdf/2404.16811) (7B)|32K|32K|<ins>92.8</ins>|<ins>88.2</ins>|<ins>88.1</ins>|<ins>86.9</ins>|70.1|27.1|75.5|	66.4 **(9th)**|84.7 **(8th)**|
 [Llama3*](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) (RoPE $\theta$=16M)(70B)|8K|>8K|<ins>95.4</ins>|<ins>94.7</ins>|<ins>93.2</ins>|<ins>85.9</ins>|22.5|0.0|65.3|48.6	**(13th)**|82.0	**(9th)**|
 [Mistral](https://huggingface.co/mistralai/Mistral-7B-instruct-v0.2) (7B)|32K|16K| <ins>93.6</ins>| <ins>91.2</ins>|<ins>87.2</ins>|75.4|49.0|13.8|68.4|55.6 **(12th)**|81.2 **(10th)**|
 [ChatGLM](https://huggingface.co/THUDM/chatglm3-6b-128K) (6B)|128K|4K|<ins>87.8</ins>|83.4|78.6|69.9|56.0|42.0|69.6|62.0 (11th)|77.2 (11th)|
@@ -29,7 +29,7 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 - Almost all models fall below the threshold before reaching the claimed context lengths. 
 - Notes (Llama3)
     - The results are evaluated by changing `rope_theta` to 16M in [here](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct/blob/main/config.json#L21).
-- Notes (FILM-7B)
+- Notes (FILM)
     - The results are submitted by authors of this [paper](https://arxiv.org/pdf/2404.16811). They use [YaRN](https://arxiv.org/pdf/2309.00071) without further training for the evaluation length exceeding 32K (64K and 128K). 
     - They do not use the one-shot example for the CWE task.
 

@@ -33,7 +33,7 @@ h.escape_all = True
 h.reference_links = False
 h.mark_code = False
 
-with open('PauGrahamEssays_URLs.txt') as f:
+with open('PaulGrahamEssays_URLs.txt') as f:
     urls = [line.strip() for line in f]
 
 for url in tqdm(urls):

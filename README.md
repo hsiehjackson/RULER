@@ -12,21 +12,26 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 [Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-insruct-v0.1) (39B/141B)|64K|32K| <ins>95.6</ins>| <ins>94.9</ins>| <ins>93.4</ins>|<ins>90.9</ins>|84.7|31.7|81.9|73.5 **(6th)**|90.3 **(5th)**|
 [Yi](https://huggingface.co/01-ai/Yi-34B-200K) (34B)|200K|32K| <ins>93.3</ins>| <ins>92.2</ins>| <ins>91.3</ins>|<ins>87.5</ins>|83.2|77.3|87.5|84.8 **(4th)**|90.1 **(6th)**|
 [Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-insruct-v0.1) (12.9B/46.7B)|32K|32K| <ins>94.9</ins>| <ins>92.1</ins>| <ins>92.5</ins>|<ins>85.9</ins>|72.4|44.5|80.4|72.8 (7th)|87.9 (7th)|
-[Llama3](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) (RoPE $\theta$=16M)(70B)|8K|>8K|<ins>95.4</ins>|<ins>94.7</ins>|<ins>93.2</ins>|<ins>85.9</ins>|22.5|0.0|65.3|48.6	**(12th)**|82.0	**(8th)**|
-[Mistral](https://huggingface.co/mistralai/Mistral-7B-insruct-v0.2) (7B)|32K|16K| <ins>93.6</ins>| <ins>91.2</ins>|<ins>87.2</ins>|75.4|49.0|13.8|68.4|55.6 **(11th)**|81.2 **(9th)**|
-[ChatGLM](https://huggingface.co/THUDM/chatglm3-6b-128K) (6B)|128K|4K|<ins>87.8</ins>|83.4|78.6|69.9|56.0|42.0|69.6|62.0 (10th)|77.2 (10th)|
-[LWM](https://huggingface.co/LargeWorldModel/LWM-Text-Chat-1M) (7B)|1M|<4K|82.3|78.4|73.7|69.1|68.1|65.0|72.8|69.9 **(8th)**|75.7 **(11th)**|
-[Phi3](https://huggingface.co/microsoft/Phi-3-mini-128K-instruct) (3.8B)|128K|4K|<ins>86.7</ins>|78.1|75.6|70.3|58.9|43.3|68.8|62.2 **(9th)**|75.5 **(12th)**|
-[DBRX](https://huggingface.co/databricKs/dbrx-insruct) (36B/132B)|32K|8K|<ins>95.1</ins>|<ins>93.8</ins>|83.6|63.1|2.4|0.0|56.3|38.0 (13th)|74.7 (13th)|
-[Qwen](https://huggingface.co/Qwen/Qwen1.5-72B-Chat) (72B)|32K|8K|<ins>94.9</ins>|<ins>93.8</ins>|78.0|67.8|0.0|0.0|55.7|37.5 (14th)|74.0 (14th)|
-[Together](https://huggingface.co/togethercomputer/Llama-2-7B-32K-insruct) (7B)|32K|4K|<ins>88.2</ins>|81.1|69.4|63.0|0.0|0.0|50.3|33.8 (15th)|66.7 (15th)|
-[LongChat](https://huggingface.co/lmsys/longchat-7b-v1.5-32K) (7B)|32K|<4K|84.7|79.9|70.8|59.3|0.0|0.0|49.1|33.1 (16th)|65.2 (16th)|
-[LongAlpaca](https://huggingface.co/YuKang/LongAlpaca-13B) (13B)| 32K|<4K|60.6|57.0|56.6|43.6|0.0|0.0|36.3|24.7 (17th)|47.9 (17th)|
+[FILM-7B*](https://arxiv.org/pdf/2404.16811) (7B)|32K|32K|<ins>92.8</ins>|<ins>88.2</ins>|<ins>88.1</ins>|<ins>86.9</ins>|70.1|27.1|75.5|	66.4 **(9th)**|84.7 **(8th)**|
+[Llama3*](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) (RoPE $\theta$=16M)(70B)|8K|>8K|<ins>95.4</ins>|<ins>94.7</ins>|<ins>93.2</ins>|<ins>85.9</ins>|22.5|0.0|65.3|48.6	**(13th)**|82.0	**(9th)**|
+[Mistral](https://huggingface.co/mistralai/Mistral-7B-insruct-v0.2) (7B)|32K|16K| <ins>93.6</ins>| <ins>91.2</ins>|<ins>87.2</ins>|75.4|49.0|13.8|68.4|55.6 **(12th)**|81.2 **(10th)**|
+[ChatGLM](https://huggingface.co/THUDM/chatglm3-6b-128K) (6B)|128K|4K|<ins>87.8</ins>|83.4|78.6|69.9|56.0|42.0|69.6|62.0 (11th)|77.2 (11th)|
+[LWM](https://huggingface.co/LargeWorldModel/LWM-Text-Chat-1M) (7B)|1M|<4K|82.3|78.4|73.7|69.1|68.1|65.0|72.8|69.9 **(8th)**|75.7 **(12th)**|
+[Phi3](https://huggingface.co/microsoft/Phi-3-mini-128K-instruct) (3.8B)|128K|4K|<ins>86.7</ins>|78.1|75.6|70.3|58.9|43.3|68.8|62.2 **(10th)**|75.5 **(13th)**|
+[DBRX](https://huggingface.co/databricKs/dbrx-insruct) (36B/132B)|32K|8K|<ins>95.1</ins>|<ins>93.8</ins>|83.6|63.1|2.4|0.0|56.3|38.0 (14th)|74.7 (14th)|
+[Qwen](https://huggingface.co/Qwen/Qwen1.5-72B-Chat) (72B)|32K|8K|<ins>94.9</ins>|<ins>93.8</ins>|78.0|67.8|0.0|0.0|55.7|37.5 (15th)|74.0 (15th)|
+[Together](https://huggingface.co/togethercomputer/Llama-2-7B-32K-insruct) (7B)|32K|4K|<ins>88.2</ins>|81.1|69.4|63.0|0.0|0.0|50.3|33.8 (16th)|66.7 (16th)|
+[LongChat](https://huggingface.co/lmsys/longchat-7b-v1.5-32K) (7B)|32K|<4K|84.7|79.9|70.8|59.3|0.0|0.0|49.1|33.1 (17th)|65.2 (17th)|
+[LongAlpaca](https://huggingface.co/YuKang/LongAlpaca-13B) (13B)| 32K|<4K|60.6|57.0|56.6|43.6|0.0|0.0|36.3|24.7 (18th)|47.9 (18th)|
 
 - Despite achieving nearly perfect performance on the vanilla needle-in-a-haystack (NIAH) test, all models (except for Gemini-1.5-pro) exhibit large degradation on tasks in RULER as sequence length increases. 
 - While all models claim context size of 32k tokens or greater (except for Llama3), only half of them can effectively handle sequence length of 32K by exceeding a qualitative threshold, Llama2-7b performance at 4K (85.6%). The performance exceeding the threshold is <ins>underlined</ins>.
 - Almost all models fall below the threshold before reaching the claimed context lengths. 
-- Llama3 results are evaluated by changing `rope_theta` to 16M in [here](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct/blob/main/config.json#L21).
+- Notes (Llama3)
+    - The results are evaluated by changing `rope_theta` to 16M in [here](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct/blob/main/config.json#L21).
+- Notes (FILM-7B)
+    - The results are submitted by authors. They use [YaRN](https://arxiv.org/pdf/2309.00071) without further training for the evaluation lengh > 32K. 
+    - They do not use the one-shot example for the CWE task.
 
 ## 💡 Requirements
 

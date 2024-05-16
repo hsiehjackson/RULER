@@ -142,6 +142,33 @@ class VLLMClient(Client):
         return outputs
 
 
+class SGLClient(Client):
+    def _single_call(
+        self,
+        prompts,
+        tokens_to_generate,
+        temperature,
+        top_p,
+        top_k,
+        random_seed,
+        stop: List[str],
+    ):
+        request = {
+            "text": prompts[0],
+            "sampling_params": {
+                "max_new_tokens": tokens_to_generate,
+                "temperature": temperature,
+                "top_k": top_k,
+                "top_p": top_p,
+                "stop": stop,
+            }
+        }
+        # TODO: random seed is not supported?
+        outputs = self._send_request(request)
+        outputs = outputs['text']
+        return outputs
+
+
 class OpenAIClient:
     def __init__(
         self,

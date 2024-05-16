@@ -47,6 +47,7 @@ from nemo.collections.asr.parts.utils.manifest_utils import read_manifest
 SERVER_TYPES = (
     'trtllm',
     'vllm',
+    'sglang',
     'openai',
     'gemini',
     'hf',
@@ -111,6 +112,21 @@ def get_llm(tokens_to_generate):
     elif args.server_type == 'vllm':
         from client_wrappers import VLLMClient
         llm = VLLMClient(
+            server_host=args.server_host,
+            server_port=args.server_port,
+            ssh_server=args.ssh_server,
+            ssh_key_path=args.ssh_key_path,
+            temperature=args.temperature,
+            top_k=args.top_k,
+            top_p=args.top_p,
+            random_seed=args.random_seed,
+            stop=args.stop_words,
+            tokens_to_generate=tokens_to_generate,
+        )
+
+    elif args.server_type == 'sglang':
+        from client_wrappers import SGLClient
+        llm = SGLClient(
             server_host=args.server_host,
             server_port=args.server_port,
             ssh_server=args.ssh_server,
@@ -229,16 +245,19 @@ def main():
             except Exception as e:
                 traceback.print_exc()
 
-        if len(pred['text']) > 0:
-            outputs_parallel[idx] = {
-                'index': index,
-                'pred': pred['text'][0],
-                'input': input,
-                'outputs': outputs,
-                'others': others,
-                'truncation': truncation,
-                'length': length,
-            }
+        if isinstance(pred['text'], str):
+            pred_text = pred['text']
+        elif len(pred['text']) > 0:
+            pred_text = pred['text'][0]
+        outputs_parallel[idx] = {
+            'index': index,
+            'pred': pred_text,
+            'input': input,
+            'outputs': outputs,
+            'others': others,
+            'truncation': truncation,
+            'length': length,
+        }
 
     threads = []
     outputs_parallel = [{} for _ in range(len(data))]

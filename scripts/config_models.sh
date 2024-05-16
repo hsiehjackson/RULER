@@ -16,10 +16,10 @@ TEMPERATURE="0.0" # greedy
 TOP_P="1.0"
 TOP_K="32"
 SEQ_LENGTHS=(
-    131072
-    65536
-    32768
-    16384
+#     131072
+#     65536
+#     32768
+#     16384
     8192
     4096
 )
@@ -31,9 +31,9 @@ MODEL_SELECT() {
     
     case $MODEL_NAME in
         llama2-7b-chat)
-            MODEL_PATH="${MODEL_DIR}/llama2-7b-chat-hf"
+            MODEL_PATH="meta-llama/Llama-2-7b-chat-hf"
             MODEL_TEMPLATE_TYPE="meta-chat"
-            MODEL_FRAMEWORK="vllm"
+            MODEL_FRAMEWORK="sglang"
             ;;
         gpt-3.5-turbo)
             MODEL_PATH="gpt-3.5-turbo-0125"
@@ -73,6 +73,10 @@ MODEL_SELECT() {
             TOKENIZER_TYPE="gemini"
             GEMINI_API_KEY=""
             ;;
+        mistral-7b-instruct-v0.2)
+            MODEL_PATH="mistralai/Mistral-7B-Instruct-v0.2"
+            MODEL_TEMPLATE_TYPE="base"
+            MODEL_FRAMEWORK="sglang"
     esac
 
 

@@ -70,6 +70,13 @@ elif [ "$MODEL_FRAMEWORK" == "trtllm" ]; then
     python pred/serve_trt.py \
         --model_path=${MODEL_PATH} \
         &
+
+elif [ "$MODEL_FRAMEWORK" == "sglang" ]; then
+    python -m sglang.launch_server \
+        --model-path ${MODEL_PATH} \
+        --port 5000 \
+        &
+
 fi
 
 

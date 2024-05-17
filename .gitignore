@@ -3,3 +3,5 @@ __pycache__/
 *.jsonl
 .vscode/
 *.out
+*.json
+*.csv

@@ -24,7 +24,7 @@ class HuggingFaceModel:
         from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
         self.tokenizer = AutoTokenizer.from_pretrained(name_or_path, trust_remote_code=True)
-
+        self.tokenizer.pad_token = self.tokenizer.eos_token
         if 'Yarn-Llama' in name_or_path:
             model_kwargs = None
         else:
@@ -40,9 +40,10 @@ class HuggingFaceModel:
                 torch_dtype=torch.bfloat16,
                 model_kwargs=model_kwargs,
             )
+            print("pipeline")
         except:
             self.pipeline = None
-            self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True, device_map="auto", torch_dtype=torch.bfloat16,)
+            self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True,torch_dtype=torch.bfloat16,).to("cuda")
             
         self.generation_kwargs = generation_kwargs
         self.stop = self.generation_kwargs.pop('stop')

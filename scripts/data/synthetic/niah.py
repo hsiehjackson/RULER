@@ -42,7 +42,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 from tokenizer import select_tokenizer
 from nltk.tokenize import sent_tokenize
 
-
+print("000")
 parser = argparse.ArgumentParser()
 # Basic Configurations
 parser.add_argument("--save_dir", type=Path, required=True, help='dataset folder to save dataset')
@@ -69,7 +69,7 @@ args = parser.parse_args()
 random.seed(args.random_seed)
 np.random.seed(args.random_seed)
 args.num_needle_k = max(args.num_needle_k, args.num_needle_q)
-
+print("!11")
 # Load Tokenizer
 TOKENIZER = select_tokenizer(args.tokenizer_type, args.tokenizer_path)
 
@@ -86,7 +86,7 @@ elif args.type_haystack == 'needle':
 else:
     raise NotImplementedError(f'{args.type_haystack} is not implemented.')
 
-
+print("22")
 # Words
 nouns = wonderwords.random_word._get_words_from_text_file("nounlist.txt")
 adjs = wonderwords.random_word._get_words_from_text_file("adjectivelist.txt")
@@ -94,7 +94,7 @@ adjs = wonderwords.random_word._get_words_from_text_file("adjectivelist.txt")
 words = [f"{adj}-{noun}" for adj in adjs for noun in nouns]
 words = sorted(list(set(words)))
 
-
+print("!3331")
 # Positions
 DEPTHS = list(np.round(np.linspace(0, 100, num=40, endpoint=True)).astype(int))
 

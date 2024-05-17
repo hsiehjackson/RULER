@@ -23,9 +23,9 @@ fi
 
 
 # Root Directories
-GPUS="" # GPU size for tensor_parallel.
-ROOT_DIR="" # the path that stores generated task samples and model predictions. 
-MODEL_DIR="" # the path that contains individual model folders from HUggingface.
+GPUS="80" # GPU size for tensor_parallel.
+ROOT_DIR="/workspace/mnt/yuzhe/RULER" # the path that stores generated task samples and model predictions. 
+MODEL_DIR="/workspace/mnt/yuzhe/models" # the path that contains individual model folders from HUggingface.
 ENGINE_DIR="" # the path that contains individual engine folders from TensorRT-LLM.
 
 
@@ -38,7 +38,6 @@ if [ -z "${MODEL_PATH}" ]; then
     echo "Model: ${MODEL_NAME} is not supported"
     exit 1
 fi
-
 
 export OPENAI_API_KEY=${OPENAI_API_KEY}
 export GEMINI_API_KEY=${GEMINI_API_KEY}

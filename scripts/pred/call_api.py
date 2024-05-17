@@ -85,7 +85,7 @@ parser.add_argument("--top_p", type=float, default=1.0)
 parser.add_argument("--random_seed", type=int, default=0)
 parser.add_argument("--stop_words", type=str, default='')
 parser.add_argument("--sliding_window_size", type=int)
-parser.add_argument("--threads", type=int, default=4)
+parser.add_argument("--threads", type=int, default=200)
 
 args = parser.parse_args()
 args.stop_words = list(filter(None, args.stop_words.split(',')))

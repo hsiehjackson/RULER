@@ -69,7 +69,6 @@ args = parser.parse_args()
 random.seed(args.random_seed)
 np.random.seed(args.random_seed)
 args.num_needle_k = max(args.num_needle_k, args.num_needle_q)
-print("!11")
 # Load Tokenizer
 TOKENIZER = select_tokenizer(args.tokenizer_type, args.tokenizer_path)
 

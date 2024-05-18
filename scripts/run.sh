@@ -103,6 +103,7 @@ for MAX_SEQ_LENGTH in "${SEQ_LENGTHS[@]}"; do
             --temperature ${TEMPERATURE} \
             --top_k ${TOP_K} \
             --top_p ${TOP_P} \
+            --max_position_embeddings ${MAX_SEQ_LENGTH} \
             ${STOP_WORDS}
     done
     

@@ -17,7 +17,7 @@ import logging
 import requests
 import torch
 from typing import Dict, List, Optional
-
+from rope import load_model
 
 class HuggingFaceModel:
     def __init__(self, name_or_path: str, **generation_kwargs) -> None:
@@ -71,6 +71,77 @@ class HuggingFaceModel:
         return {'text': [generated_text]}
 
 
+class HuggingFaceModel_longrope:
+    def __init__(self, name_or_path: str, **generation_kwargs) -> None:
+        self.generation_kwargs = generation_kwargs
+        print(self.generation_kwargs)
+        self.max_new_tokens = self.generation_kwargs.pop('max_new_tokens')
+        from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+
+        self.tokenizer = AutoTokenizer.from_pretrained(name_or_path, trust_remote_code=True)
+        # self.tokenizer.pad_token = self.tokenizer.eos_token
+        rope_method = "longrope"
+        rope_params = {
+            'longrope_params_path': "/workspace/mnt/yuzhe/models/longrope_params/131072_swa131072_dm.csv",
+            'longrope_scaling_policy': "su",
+        }
+        # dtype = 'auto' if args.dtype is None else getattr(torch, args.dtype)
+        dtype = 'auto'
+        model_kwargs = {"attn_implementation": "flash_attention_2"}
+        max_position_embeddings = 4096
+        print(self.generation_kwargs)
+        self.max_position_embeddings = generation_kwargs.pop('max_position_embeddings')
+        attn_implementation = "flash_attention_2"
+        print(self.generation_kwargs)
+        model = load_model(
+            model_name_or_path=name_or_path,
+            rope_method=rope_method,
+            max_position_embeddings=max_position_embeddings,
+            rope_params=rope_params,
+            cache_dir="/mnt/logs/cache_dir",
+            attn_implementation=attn_implementation,
+            attn_sliding_window=131072,
+            save_memory=True,
+            torch_dtype=dtype,
+            device_map='auto',
+        )
+        try:
+            self.pipeline = pipeline(
+            task="text-generation",
+            model=model,
+            tokenizer=self.tokenizer,
+            pad_token_id=self.tokenizer.eos_token_id,
+            use_cache=False,
+        )
+            print("pipeline")
+        except:
+            self.pipeline = None
+            self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True,torch_dtype=torch.bfloat16,).to("cuda")
+            
+        self.stop = self.generation_kwargs.pop('stop')
+
+    def __call__(self, prompt: str, **kwargs) -> Dict[str, List[str]]:
+        if self.pipeline is None:
+            inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
+            output = self.model.generate(
+                **inputs,
+                **self.generation_kwargs
+            )
+            generated_text = self.tokenizer.decode(output[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
+        else:
+            # actual_num_tokens = len(self.pipe.tokenizer.encode(prompt))
+            response = self.pipeline(prompt, num_return_sequences=1, max_new_tokens=self.max_new_tokens)[0]["generated_text"][len(prompt):]
+            # output = self.pipeline(text_inputs=prompt, **self.generation_kwargs,)
+            generated_text = response
+            
+        # remove the input form the generated text
+        if generated_text.startswith(prompt):
+            generated_text = generated_text[len(prompt) :]
+                
+        if self.stop is not None:
+            for s in self.stop:
+                generated_text = generated_text.split(s)[0]
+        return {'text': [generated_text]}
 class MambaModel:
     def __init__(self, name_or_path: str, **generation_kwargs) -> None:
         from transformers import AutoTokenizer

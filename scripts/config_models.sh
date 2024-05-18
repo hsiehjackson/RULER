@@ -25,11 +25,11 @@ TOP_K="32"
 # )
 SEQ_LENGTHS=(
     # 4096
-    8192
+    # 8192
     16384
-    32768
-    65536
-    131072
+    # 32768
+    # 65536
+    # 131072
 )
 
 MODEL_SELECT() {
@@ -38,30 +38,40 @@ MODEL_SELECT() {
     ENGINE_DIR=$3
     
     case $MODEL_NAME in
+        phi-3-3_8b_longrope_128k_swa128k_redpajama_dm_64_1000_test)
+        MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_dm_64_1000"
+        MODEL_TEMPLATE_TYPE="base"
+        MODEL_FRAMEWORK="hf_longrope"
+        ;;
+        phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m1_test)
+        MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m1"
+        MODEL_TEMPLATE_TYPE="base"
+        MODEL_FRAMEWORK="hf"
+        ;;
         phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m5)
         MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m5"
-        MODEL_TEMPLATE_TYPE="meta-chat"
+        MODEL_TEMPLATE_TYPE="base"
         MODEL_FRAMEWORK="hf"
         ;;
         phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m4)
         MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m4"
-        MODEL_TEMPLATE_TYPE="meta-chat"
+        MODEL_TEMPLATE_TYPE="base"
         MODEL_FRAMEWORK="hf"
         ;;
         phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m2)
         MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m2"
-        MODEL_TEMPLATE_TYPE="meta-chat"
+        MODEL_TEMPLATE_TYPE="base"
         MODEL_FRAMEWORK="hf"
         ;;
         phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m1)
         MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_v2_m1"
-        MODEL_TEMPLATE_TYPE="meta-chat"
+        MODEL_TEMPLATE_TYPE="base"
         MODEL_FRAMEWORK="hf"
         ;;
         phi-3-3_8b_longrope_128k_swa128k_redpajama_dm_64_1000)
         MODEL_PATH="${MODEL_DIR}/phi-3-3_8b_longrope_128k_swa128k_redpajama_dm_64_1000"
-        MODEL_TEMPLATE_TYPE="meta-chat"
-        MODEL_FRAMEWORK="hf"
+        MODEL_TEMPLATE_TYPE="base"
+        MODEL_FRAMEWORK="hf_longrope"
         ;;
         Phi3-internal)
         MODEL_PATH="${MODEL_DIR}/phi3.8b"

@@ -51,6 +51,7 @@ SERVER_TYPES = (
     'gemini',
     'hf',
     'mamba',
+    "hf_longrope"
 )
 
 
@@ -67,6 +68,7 @@ parser.add_argument("--task", type=str, required=True, help='Options: tasks in b
 parser.add_argument("--subset", type=str, default='validation', help='Options: validation or test')
 parser.add_argument("--chunk_idx", type=int, default=0, help='index of current split chunk')
 parser.add_argument("--chunk_amount", type=int, default=1, help='size of split chunk')
+parser.add_argument("--max_position_embeddings", type=int, default=4096, help='max_position_embeddings')
 
 # Server
 parser.add_argument("--server_type", default='nemo', action=ServerAction, choices=SERVER_TYPES)
@@ -160,6 +162,20 @@ def get_llm(tokens_to_generate):
             max_new_tokens=tokens_to_generate,
         )
     
+    elif args.server_type == 'hf_longrope':
+        print("using longrope!!! It may not be stable right now.")
+        from model_wrappers import HuggingFaceModel_longrope
+        llm = HuggingFaceModel_longrope(
+            name_or_path=args.model_name_or_path,
+            do_sample=args.temperature > 0,
+            repetition_penalty=1,
+            temperature=args.temperature,
+            top_k=args.top_k,
+            top_p=args.top_p,
+            stop=args.stop_words,
+            max_new_tokens=tokens_to_generate,
+            max_position_embeddings=args.max_position_embeddings
+        )
     elif args.server_type == 'mamba':
         from model_wrappers import MambaModel
         # mamba uses its own generation function, do not pass in do_sample

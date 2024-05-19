@@ -57,10 +57,11 @@ class HuggingFaceModel:
             )
             generated_text = self.tokenizer.decode(output[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
         else:
+            print(self.generation_kwargs)
             output = self.pipeline(text_inputs=prompt, **self.generation_kwargs,)
             assert len(output) == 1
             generated_text = output[0]["generated_text"]
-            
+        # print(generated_text)
         # remove the input form the generated text
         if generated_text.startswith(prompt):
             generated_text = generated_text[len(prompt) :]
@@ -75,11 +76,11 @@ class HuggingFaceModel_longrope:
     def __init__(self, name_or_path: str, **generation_kwargs) -> None:
         self.generation_kwargs = generation_kwargs
         print(self.generation_kwargs)
-        self.max_new_tokens = self.generation_kwargs.pop('max_new_tokens')
+        # self.max_new_tokens = self.generation_kwargs.pop('max_new_tokens')
         from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
         self.tokenizer = AutoTokenizer.from_pretrained(name_or_path, trust_remote_code=True)
-        # self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.tokenizer.pad_token = self.tokenizer.eos_token
         rope_method = "longrope"
         rope_params = {
             'longrope_params_path': "/workspace/mnt/yuzhe/models/longrope_params/131072_swa131072_dm.csv",
@@ -88,35 +89,37 @@ class HuggingFaceModel_longrope:
         # dtype = 'auto' if args.dtype is None else getattr(torch, args.dtype)
         dtype = 'auto'
         model_kwargs = {"attn_implementation": "flash_attention_2"}
-        max_position_embeddings = 4096
         print(self.generation_kwargs)
         self.max_position_embeddings = generation_kwargs.pop('max_position_embeddings')
         attn_implementation = "flash_attention_2"
         print(self.generation_kwargs)
-        model = load_model(
+        self.model = load_model(
             model_name_or_path=name_or_path,
             rope_method=rope_method,
-            max_position_embeddings=max_position_embeddings,
+            max_position_embeddings=self.max_position_embeddings,
             rope_params=rope_params,
             cache_dir="/mnt/logs/cache_dir",
             attn_implementation=attn_implementation,
             attn_sliding_window=131072,
-            save_memory=True,
+            save_memory=False,
             torch_dtype=dtype,
             device_map='auto',
         )
-        try:
-            self.pipeline = pipeline(
-            task="text-generation",
-            model=model,
-            tokenizer=self.tokenizer,
-            pad_token_id=self.tokenizer.eos_token_id,
-            use_cache=False,
-        )
-            print("pipeline")
-        except:
-            self.pipeline = None
-            self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True,torch_dtype=torch.bfloat16,).to("cuda")
+        # try:
+        self.pipeline = pipeline(
+        task="text-generation",
+        model=self.model,
+        tokenizer=self.tokenizer,
+        pad_token_id=self.tokenizer.eos_token_id,
+        use_cache=False,
+        device_map= "auto",
+        model_kwargs=model_kwargs
+    )
+    #     print("pipeline")
+        # self.pipeline = None
+        # except:
+        #     self.pipeline = None
+        #     self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True,torch_dtype=torch.bfloat16,).to("cuda")
             
         self.stop = self.generation_kwargs.pop('stop')
 
@@ -125,14 +128,18 @@ class HuggingFaceModel_longrope:
             inputs = self.tokenizer(prompt, return_tensors="pt").to(self.model.device)
             output = self.model.generate(
                 **inputs,
-                **self.generation_kwargs
+                **self.generation_kwargs,
+                use_cache=False
             )
             generated_text = self.tokenizer.decode(output[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
         else:
             # actual_num_tokens = len(self.pipe.tokenizer.encode(prompt))
-            response = self.pipeline(prompt, num_return_sequences=1, max_new_tokens=self.max_new_tokens)[0]["generated_text"][len(prompt):]
+            # print(self.max_new_tokens)
+            # print(prompt)
+            # print(self.pipeline(prompt, num_return_sequences=1, max_new_tokens=self.max_new_tokens))
+            response = self.pipeline(prompt, **self.generation_kwargs)
             # output = self.pipeline(text_inputs=prompt, **self.generation_kwargs,)
-            generated_text = response
+            generated_text = response[0]["generated_text"]
             
         # remove the input form the generated text
         if generated_text.startswith(prompt):

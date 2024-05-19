@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-NUM_SAMPLES=10
+NUM_SAMPLES=20
 REMOVE_NEWLINE_TAB=false
 STOP_WORDS=""
 

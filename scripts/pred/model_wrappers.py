@@ -111,7 +111,7 @@ class HuggingFaceModel_longrope:
         model=self.model,
         tokenizer=self.tokenizer,
         pad_token_id=self.tokenizer.eos_token_id,
-        use_cache=False,
+        use_cache=True,
         device_map= "auto",
         model_kwargs=model_kwargs
     )
@@ -137,6 +137,7 @@ class HuggingFaceModel_longrope:
             # print(self.max_new_tokens)
             # print(prompt)
             # print(self.pipeline(prompt, num_return_sequences=1, max_new_tokens=self.max_new_tokens))
+            self.generation_kwargs["max_new_tokens"] = 150
             response = self.pipeline(prompt, **self.generation_kwargs)
             # output = self.pipeline(text_inputs=prompt, **self.generation_kwargs,)
             generated_text = response[0]["generated_text"]

@@ -57,6 +57,7 @@ class LlamaLongRoPEScaledRotaryEmbedding(LlamaRotaryEmbedding):
         freqs = torch.einsum("i,j->ij", t, self.inv_freq)
 
         mscale = self._calc_mscale(seq_len / self.original_max_position_embeddings)
+        # mscale = 1.175
 
         emb = torch.cat((freqs, freqs), dim=-1)
         if _UNSQUEEZE_CACHE:

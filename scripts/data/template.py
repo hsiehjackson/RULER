@@ -29,5 +29,9 @@ Templates = {
 
     "Phi3-internal": "<s> <|system|> <|end|> <|user|> {task_template} <|end|> <|assistant|>",
 
-    "Phi3-internal-wobos": "<|system|> <|end|> <|user|> QUESTION <|end|> <|assistant|>"
+    "Phi3-internal-wobos": "<|system|> <|end|> <|user|> {task_template} <|end|> <|assistant|>",
+
+    "Phi3.1":  "<|user|> {task_template} <|end|> <|assistant|>",
+
+    "Phi-3-mini-128k-instruct":  "<bos token> <|user|> {task_template} <|end|> <|assistant|>"
 }

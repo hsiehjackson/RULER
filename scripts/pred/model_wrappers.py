@@ -24,12 +24,10 @@ class HuggingFaceModel:
         from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
         self.tokenizer = AutoTokenizer.from_pretrained(name_or_path, trust_remote_code=True)
-        self.tokenizer.pad_token = self.tokenizer.eos_token
         if 'Yarn-Llama' in name_or_path:
             model_kwargs = None
         else:
             model_kwargs = {"attn_implementation": "flash_attention_2"}
-        
         try:
             self.pipeline = pipeline(
                 "text-generation",
@@ -42,8 +40,9 @@ class HuggingFaceModel:
             )
             print("pipeline")
         except:
+            print("not using pipeline")
             self.pipeline = None
-            self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True,torch_dtype=torch.bfloat16,).to("cuda")
+            self.model = AutoModelForCausalLM.from_pretrained(name_or_path, trust_remote_code=True,torch_dtype=torch.bfloat16,)
             
         self.generation_kwargs = generation_kwargs
         self.stop = self.generation_kwargs.pop('stop')
@@ -133,13 +132,8 @@ class HuggingFaceModel_longrope:
             )
             generated_text = self.tokenizer.decode(output[0][inputs.input_ids.shape[1]:], skip_special_tokens=True)
         else:
-            # actual_num_tokens = len(self.pipe.tokenizer.encode(prompt))
-            # print(self.max_new_tokens)
-            # print(prompt)
-            # print(self.pipeline(prompt, num_return_sequences=1, max_new_tokens=self.max_new_tokens))
-            self.generation_kwargs["max_new_tokens"] = 150
+            self.generation_kwargs["max_new_tokens"] = 50
             response = self.pipeline(prompt, **self.generation_kwargs)
-            # output = self.pipeline(text_inputs=prompt, **self.generation_kwargs,)
             generated_text = response[0]["generated_text"]
             
         # remove the input form the generated text

@@ -32,7 +32,7 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 - Notes (Meta/Llama3)
     - The results are evaluated by changing `rope_theta` to 16M in [here](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct/blob/main/config.json#L21).
 - Notes (FILM-7B)
-    - The results are submitted by authors. They use [YaRN](https://arxiv.org/pdf/2309.00071) without further training for the evaluation lengh > 32K. 
+    - The results are submitted by authors of this [paper](https://arxiv.org/pdf/2404.16811). They use [YaRN](https://arxiv.org/pdf/2309.00071) without further training for the evaluation length exceeding 32K (64K and 128K). 
     - They do not use the one-shot example for the CWE task.
 - Notes (GradientAI/Llama3)
     - The results are submitted by authors. 

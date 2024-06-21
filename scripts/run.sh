@@ -56,29 +56,27 @@ if [ -z "${TASKS}" ]; then
     exit 1
 fi
 
-GPUS=1
-
 # Start server (you may want to run in other container.)
-# if [ "$MODEL_FRAMEWORK" == "vllm" ]; then
-#     python pred/serve_vllm.py \
-#         --model=${MODEL_PATH} \
-#         --tensor-parallel-size=${GPUS} \
-#         --dtype bfloat16 \
-#         --disable-custom-all-reduce \
-#         &
-# 
-# elif [ "$MODEL_FRAMEWORK" == "trtllm" ]; then
-#     python pred/serve_trt.py \
-#         --model_path=${MODEL_PATH} \
-#         &
-# 
-# elif [ "$MODEL_FRAMEWORK" == "sglang" ]; then
-#     python -m sglang.launch_server \
-#         --model-path ${MODEL_PATH} \
-#         --port 5000 \
-#         &
-# 
-# fi
+if [ "$MODEL_FRAMEWORK" == "vllm" ]; then
+    python pred/serve_vllm.py \
+        --model=${MODEL_PATH} \
+        --tensor-parallel-size=${GPUS} \
+        --dtype bfloat16 \
+        --disable-custom-all-reduce \
+        &
+
+elif [ "$MODEL_FRAMEWORK" == "trtllm" ]; then
+    python pred/serve_trt.py \
+        --model_path=${MODEL_PATH} \
+        &
+
+elif [ "$MODEL_FRAMEWORK" == "sglang" ]; then
+    python -m sglang.launch_server \
+        --model-path ${MODEL_PATH} \
+        --port 5000 \
+        &
+
+fi
 
 
 # Start client (prepare data / call model API / obtain final metrics)

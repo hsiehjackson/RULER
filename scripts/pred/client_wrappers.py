@@ -397,4 +397,4 @@ class GeminiClient:
         import google.generativeai as genai
         genai.configure(api_key=os.environ["GEMINI_API_KEY"])
         return genai.GenerativeModel(self.model_name)
-        
+

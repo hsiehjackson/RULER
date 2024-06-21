@@ -16,11 +16,11 @@ TEMPERATURE="0.0" # greedy
 TOP_P="1.0"
 TOP_K="32"
 SEQ_LENGTHS=(
-#     131072
-#     65536
-#     32768
-#     16384
-#     8192
+    131072
+    65536
+    32768
+    16384
+    8192
     4096
 )
 
@@ -77,6 +77,7 @@ MODEL_SELECT() {
             MODEL_PATH="mistralai/Mistral-7B-Instruct-v0.2"
             MODEL_TEMPLATE_TYPE="base"
             MODEL_FRAMEWORK="sglang"
+            ;;
     esac
 
 

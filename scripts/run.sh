@@ -56,6 +56,7 @@ if [ -z "${TASKS}" ]; then
     exit 1
 fi
 
+
 # Start server (you may want to run in other container.)
 if [ "$MODEL_FRAMEWORK" == "vllm" ]; then
     python pred/serve_vllm.py \
@@ -73,8 +74,11 @@ elif [ "$MODEL_FRAMEWORK" == "trtllm" ]; then
 elif [ "$MODEL_FRAMEWORK" == "sglang" ]; then
     python -m sglang.launch_server \
         --model-path ${MODEL_PATH} \
+        --tp ${GPUS} \
         --port 5000 \
+        --enable-flashinfer \
         &
+    # use sglang/test/killall_sglang.sh to kill sglang server if it hangs
 
 fi
 

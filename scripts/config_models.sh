@@ -73,11 +73,6 @@ MODEL_SELECT() {
             TOKENIZER_TYPE="gemini"
             GEMINI_API_KEY=""
             ;;
-        mistral-7b-instruct-v0.2)
-            MODEL_PATH="mistralai/Mistral-7B-Instruct-v0.2"
-            MODEL_TEMPLATE_TYPE="base"
-            MODEL_FRAMEWORK="sglang"
-            ;;
     esac
 
 

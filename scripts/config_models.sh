@@ -31,9 +31,9 @@ MODEL_SELECT() {
     
     case $MODEL_NAME in
         llama2-7b-chat)
-            MODEL_PATH="meta-llama/Llama-2-7b-chat-hf"
+            MODEL_PATH="${MODEL_DIR}/llama2-7b-chat-hf"
             MODEL_TEMPLATE_TYPE="meta-chat"
-            MODEL_FRAMEWORK="sglang"
+            MODEL_FRAMEWORK="vllm"
             ;;
         gpt-3.5-turbo)
             MODEL_PATH="gpt-3.5-turbo-0125"

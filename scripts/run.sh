@@ -70,10 +70,21 @@ elif [ "$MODEL_FRAMEWORK" == "trtllm" ]; then
     python pred/serve_trt.py \
         --model_path=${MODEL_PATH} \
         &
+
+elif [ "$MODEL_FRAMEWORK" == "sglang" ]; then
+    python -m sglang.launch_server \
+        --model-path ${MODEL_PATH} \
+        --tp ${GPUS} \
+        --port 5000 \
+        --enable-flashinfer \
+        &
+    # use sglang/test/killall_sglang.sh to kill sglang server if it hangs
+
 fi
 
 
 # Start client (prepare data / call model API / obtain final metrics)
+total_time=0
 for MAX_SEQ_LENGTH in "${SEQ_LENGTHS[@]}"; do
     
     RESULTS_DIR="${ROOT_DIR}/${MODEL_NAME}/${BENCHMARK}/${MAX_SEQ_LENGTH}"
@@ -94,6 +105,7 @@ for MAX_SEQ_LENGTH in "${SEQ_LENGTHS[@]}"; do
             --num_samples ${NUM_SAMPLES} \
             ${REMOVE_NEWLINE_TAB}
         
+        start_time=$(date +%s)
         python pred/call_api.py \
             --data_dir ${DATA_DIR} \
             --save_dir ${PRED_DIR} \
@@ -105,6 +117,9 @@ for MAX_SEQ_LENGTH in "${SEQ_LENGTHS[@]}"; do
             --top_k ${TOP_K} \
             --top_p ${TOP_P} \
             ${STOP_WORDS}
+        end_time=$(date +%s)
+        time_diff=$((end_time - start_time))
+        total_time=$((total_time + time_diff))
     done
     
     python eval/evaluate.py \
@@ -112,3 +127,4 @@ for MAX_SEQ_LENGTH in "${SEQ_LENGTHS[@]}"; do
         --benchmark ${BENCHMARK}
 done
 
+echo "Total time spent on call_api: $total_time seconds"

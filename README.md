@@ -11,18 +11,18 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 [GLM-4-chat](https://huggingface.co/THUDM/glm-4-9b-chat-1m) (9B)|1M|64K|<ins>94.7</ins>|<ins>92.8</ins>|<ins>92.1</ins>|<ins>89.9</ins>|<ins>86.7</ins>|83.1|89.9|88.0 **(3rd)**|91.7 **(4th)**|
 [GradientAI/Llama3*](https://huggingface.co/gradientai/Llama-3-70B-Instruct-Gradient-1048k)(70B)|1M|32K|<ins>95.2</ins>|<ins>93.4</ins>|<ins>93.4</ins>|<ins>89.4</ins>|82.6|72.0|87.7|84.0	**(6th)**|91.3	**(5th)**|
 [Command-R](https://huggingface.co/CohereForAI/c4ai-command-r-v01) (35B)|128K|32K| <ins>93.8</ins>| <ins>93.3</ins>| <ins>92.4</ins>|<ins>89.5</ins>|84.9|76.0|88.3|85.5 **(4th)**|91.1 **(6th)**|
-[Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-insruct-v0.1) (39B/141B)|64K|32K| <ins>95.6</ins>| <ins>94.9</ins>| <ins>93.4</ins>|<ins>90.9</ins>|84.7|31.7|81.9|73.5 **(8th)**|90.3 **(7th)**|
+[Mixtral-8x22B](https://huggingface.co/mistralai/Mixtral-8x22B-instruct-v0.1) (39B/141B)|64K|32K| <ins>95.6</ins>| <ins>94.9</ins>| <ins>93.4</ins>|<ins>90.9</ins>|84.7|31.7|81.9|73.5 **(8th)**|90.3 **(7th)**|
 [Yi](https://huggingface.co/01-ai/Yi-34B-200K) (34B)|200K|32K| <ins>93.3</ins>| <ins>92.2</ins>| <ins>91.3</ins>|<ins>87.5</ins>|83.2|77.3|87.5|84.8 **(5th)**|90.1 **(8th)**|
-[Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-insruct-v0.1) (12.9B/46.7B)|32K|32K| <ins>94.9</ins>| <ins>92.1</ins>| <ins>92.5</ins>|<ins>85.9</ins>|72.4|44.5|80.4|72.8 (9th)|87.9 (9th)|
+[Mixtral-8x7B](https://huggingface.co/mistralai/Mixtral-8x7B-instruct-v0.1) (12.9B/46.7B)|32K|32K| <ins>94.9</ins>| <ins>92.1</ins>| <ins>92.5</ins>|<ins>85.9</ins>|72.4|44.5|80.4|72.8 (9th)|87.9 (9th)|
 [FILM-7B*](https://arxiv.org/pdf/2404.16811) (7B)|32K|32K|<ins>92.8</ins>|<ins>88.2</ins>|<ins>88.1</ins>|<ins>86.9</ins>|70.1|27.1|75.5|	66.4 **(11th)**|84.7 **(10th)**|
 [Meta/Llama3*](https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct) (RoPE $\theta$=16M)(70B)|8K|>8K|<ins>95.4</ins>|<ins>94.7</ins>|<ins>93.2</ins>|<ins>85.9</ins>|22.5|0.0|65.3|48.6	**(14th)**|82.0	**(11th)**|
-[Mistral](https://huggingface.co/mistralai/Mistral-7B-insruct-v0.2) (7B)|32K|16K| <ins>93.6</ins>| <ins>91.2</ins>|<ins>87.2</ins>|75.4|49.0|13.8|68.4|55.6 **(15th)**|81.2 **(12th)**|
+[Mistral](https://huggingface.co/mistralai/Mistral-7B-instruct-v0.2) (7B)|32K|16K| <ins>93.6</ins>| <ins>91.2</ins>|<ins>87.2</ins>|75.4|49.0|13.8|68.4|55.6 **(15th)**|81.2 **(12th)**|
 [ChatGLM](https://huggingface.co/THUDM/chatglm3-6b-128K) (6B)|128K|4K|<ins>87.8</ins>|83.4|78.6|69.9|56.0|42.0|69.6|62.0 (13th)|77.2 (13th)|
 [LWM](https://huggingface.co/LargeWorldModel/LWM-Text-Chat-1M) (7B)|1M|<4K|82.3|78.4|73.7|69.1|68.1|65.0|72.8|69.9 **(10th)**|75.7 **(14th)**|
 [Phi3](https://huggingface.co/microsoft/Phi-3-mini-128K-instruct) (3.8B)|128K|4K|<ins>86.7</ins>|78.1|75.6|70.3|58.9|43.3|68.8|62.2 **(12th)**|75.5 **(15th)**|
-[DBRX](https://huggingface.co/databricKs/dbrx-insruct) (36B/132B)|32K|8K|<ins>95.1</ins>|<ins>93.8</ins>|83.6|63.1|2.4|0.0|56.3|38.0 (16th)|74.7 (16th)|
+[DBRX](https://huggingface.co/databricKs/dbrx-instruct) (36B/132B)|32K|8K|<ins>95.1</ins>|<ins>93.8</ins>|83.6|63.1|2.4|0.0|56.3|38.0 (16th)|74.7 (16th)|
 [Qwen](https://huggingface.co/Qwen/Qwen1.5-72B-Chat) (72B)|32K|8K|<ins>94.9</ins>|<ins>93.8</ins>|78.0|67.8|0.0|0.0|55.7|37.5 (17th)|74.0 (17th)|
-[Together](https://huggingface.co/togethercomputer/Llama-2-7B-32K-insruct) (7B)|32K|4K|<ins>88.2</ins>|81.1|69.4|63.0|0.0|0.0|50.3|33.8 (18th)|66.7 (18th)|
+[Together](https://huggingface.co/togethercomputer/Llama-2-7B-32K-instruct) (7B)|32K|4K|<ins>88.2</ins>|81.1|69.4|63.0|0.0|0.0|50.3|33.8 (18th)|66.7 (18th)|
 [LongChat](https://huggingface.co/lmsys/longchat-7b-v1.5-32K) (7B)|32K|<4K|84.7|79.9|70.8|59.3|0.0|0.0|49.1|33.1 (19th)|65.2 (19th)|
 [LongAlpaca](https://huggingface.co/YuKang/LongAlpaca-13B) (13B)| 32K|<4K|60.6|57.0|56.6|43.6|0.0|0.0|36.3|24.7 (20th)|47.9 (20th)|
 

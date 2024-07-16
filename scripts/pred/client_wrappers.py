@@ -63,7 +63,7 @@ class Client(abc.ABC):
         # prompts are added later
         request['prompts'] = [f'{prompt}']
         if 'others' in kwargs:
-            requeset['others'] = kwargs['others']
+            request['others'] = kwargs['others']
 
         outputs = self._single_call(**request)
         response = {'text': outputs}
@@ -87,6 +87,10 @@ class Client(abc.ABC):
                 headers={"Content-Type": "application/json"},
             ).json()
         return outputs
+
+    def process_batch(self, prompts: List[str], **kwargs) -> List[dict]:
+        # naive implementation
+        return [self.__call__(prompt, **kwargs) for prompt in prompts]
 
 
 class TRTLLMClient(Client):

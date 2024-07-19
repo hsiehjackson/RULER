@@ -23,10 +23,11 @@ fi
 
 
 # Root Directories
-GPUS="" # GPU size for tensor_parallel.
-ROOT_DIR="" # the path that stores generated task samples and model predictions. 
-MODEL_DIR="" # the path that contains individual model folders from HUggingface.
-ENGINE_DIR="" # the path that contains individual engine folders from TensorRT-LLM.
+GPUS="1" # GPU size for tensor_parallel.
+ROOT_DIR="benchmark_root" # the path that stores generated task samples and model predictions.
+MODEL_DIR="../.." # the path that contains individual model folders from HUggingface.
+ENGINE_DIR="." # the path that contains individual engine folders from TensorRT-LLM.
+BATCH_SIZE=1  # increase to improve GPU utilization
 
 
 # Model and Tokenizer
@@ -116,6 +117,7 @@ for MAX_SEQ_LENGTH in "${SEQ_LENGTHS[@]}"; do
             --temperature ${TEMPERATURE} \
             --top_k ${TOP_K} \
             --top_p ${TOP_P} \
+            --batch_size ${BATCH_SIZE} \
             ${STOP_WORDS}
         end_time=$(date +%s)
         time_diff=$((end_time - start_time))

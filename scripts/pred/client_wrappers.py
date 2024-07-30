@@ -15,6 +15,7 @@
 
 import abc
 import json
+import multiprocessing
 import os
 import re
 import sys
@@ -89,8 +90,19 @@ class Client(abc.ABC):
         return outputs
 
     def process_batch(self, prompts: List[str], **kwargs) -> List[dict]:
-        # naive implementation
-        return [self.__call__(prompt, **kwargs) for prompt in prompts]
+        num_threads = max(96, multiprocessing.cpu_count() * 16)
+        with ThreadPoolExecutor(num_threads) as executor:
+            futures = []
+            for prompt in prompts:
+                futures.append(
+                    executor.submit(
+                        self.__call__,
+                        prompt,
+                        **kwargs,
+                    )
+                )
+            rets = [f.result() for f in futures]
+        return rets
 
 
 class TRTLLMClient(Client):

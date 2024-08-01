@@ -101,44 +101,53 @@ def main():
     random_seed = 42 + args.chunk_idx
 
     
-    try:
-        script = os.path.join(curr_folder, args.benchmark, f"{config['task']}.py")
-        additional_args = " ".join([f"--{k} {v}" for k, v in config['args'].items()])
-        command = f"""python {script} \
-        --save_dir  {args.save_dir} \
-        --save_name {args.task} \
-        --subset {args.subset} \
-        --tokenizer_path {args.tokenizer_path} \
-        --tokenizer_type {args.tokenizer_type} \
-        --max_seq_length {args.max_seq_length} \
-        --tokens_to_generate {config['tokens_to_generate']} \
-        --num_samples {num_samples} \
-        --random_seed {random_seed} \
-        {additional_args} \
-        {f"--remove_newline_tab" if args.remove_newline_tab else ""} \
-        {f"--pre_samples {pre_samples}" if config['task'] == 'qa' else ""} \
-        --template "{config['template']}"
-        """
-        print(command)
-        result = subprocess.run(command, 
-                                shell=True, 
-                                check=True, 
-                                stdout=subprocess.PIPE, 
-                                stderr=subprocess.PIPE, 
-                                text=True)
-        
-        if result.returncode == 0:
-            print("Output:")
-            print(result.stdout)
-        else:
-            print("Error:")
-            print(result.stderr)
-    except subprocess.CalledProcessError as e:
-        print("Error output:", e.stderr)
-
     save_file = args.save_dir / args.task / f"{args.subset}.jsonl"
-    print(f"Prepare {args.task} with lines: {args.num_samples} to {save_file}")
-    print(f"Used time: {round((time.time() - start_time) / 60, 1)} minutes")
+    file_exists = False
+    if os.path.exists(save_file):
+        with open(save_file, "r") as f:
+            data = f.readlines()
+        if len(data) == args.num_samples: file_exists = True
+
+    if not file_exists:
+        try:
+            script = os.path.join(curr_folder, args.benchmark, f"{config['task']}.py")
+            additional_args = " ".join([f"--{k} {v}" for k, v in config['args'].items()])
+            command = f"""python {script} \
+            --save_dir  {args.save_dir} \
+            --save_name {args.task} \
+            --subset {args.subset} \
+            --tokenizer_path {args.tokenizer_path} \
+            --tokenizer_type {args.tokenizer_type} \
+            --max_seq_length {args.max_seq_length} \
+            --tokens_to_generate {config['tokens_to_generate']} \
+            --num_samples {num_samples} \
+            --random_seed {random_seed} \
+            {additional_args} \
+            {f"--remove_newline_tab" if args.remove_newline_tab else ""} \
+            {f"--pre_samples {pre_samples}" if config['task'] == 'qa' else ""} \
+            --template "{config['template']}"
+            """
+            print(command)
+            result = subprocess.run(command, 
+                                    shell=True, 
+                                    check=True, 
+                                    stdout=subprocess.PIPE, 
+                                    stderr=subprocess.PIPE, 
+                                    text=True)
+            
+            if result.returncode == 0:
+                print("Output:")
+                print(result.stdout)
+            else:
+                print("Error:")
+                print(result.stderr)
+        except subprocess.CalledProcessError as e:
+            print("Error output:", e.stderr)
+
+        print(f"Prepare {args.task} with lines: {args.num_samples} to {save_file}")
+        print(f"Used time: {round((time.time() - start_time) / 60, 1)} minutes")
+    else:
+        print(f"Skip preparing {args.task} with lines: {args.num_samples} to {save_file} (file exists)")
     
 if __name__ == '__main__':
     main()

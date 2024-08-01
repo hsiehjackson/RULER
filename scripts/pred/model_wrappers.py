@@ -68,7 +68,10 @@ class HuggingFaceModel:
         else:
             output = self.pipeline(text_inputs=prompts, **self.generation_kwargs, )
             assert len(output) == len(prompts)
-            generated_texts = [llm_result["generated_text"] for llm_result in output]
+            # output in the form of a list of list of dictionaries
+            # outer list len = batch size
+            # inner list len = 1
+            generated_texts = [llm_result[0]["generated_text"] for llm_result in output]
 
         results = []
 

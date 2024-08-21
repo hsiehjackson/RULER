@@ -63,6 +63,7 @@ bash download_qa_dataset.sh
 ### 2. Download model 
 - We download the models from [Huggingface](https://huggingface.co/models).
 - The input template of each model is stored in `scripts/data/template.py`. Please add new model template if your new model uses a different chat template.
+- Increase `max_position_embeddings` in `config.json` if you want to run inference longer than model defined length.
 - (Optional) If you are using [TensorRT-LLM](https://github.com/NVIDIA/TensorRT-LLM/tree/main), please build your model engine based on their example scripts (e.g., [Llama](https://github.com/NVIDIA/TensorRT-LLM/tree/main/examples/llama)) with their [Docker container](https://github.com/NVIDIA/TensorRT-LLM/tree/main?tab=readme-ov-file#installation).
 
 ### 3. Run evaluation pipeline

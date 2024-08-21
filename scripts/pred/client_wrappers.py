@@ -90,18 +90,24 @@ class Client(abc.ABC):
         return outputs
 
     def process_batch(self, prompts: List[str], **kwargs) -> List[dict]:
-        num_threads = max(96, multiprocessing.cpu_count() * 16)
-        with ThreadPoolExecutor(num_threads) as executor:
-            futures = []
-            for prompt in prompts:
-                futures.append(
-                    executor.submit(
-                        self.__call__,
-                        prompt,
-                        **kwargs,
-                    )
-                )
-            rets = [f.result() for f in futures]
+        # num_threads = max(96, multiprocessing.cpu_count() * 16)
+        # with ThreadPoolExecutor(num_threads) as executor:
+        #     futures = []
+        #     for prompt in prompts:
+        #         futures.append(
+        #             executor.submit(
+        #                 self.__call__,
+        #                 prompt,
+        #                 **kwargs,
+        #             )
+        #         )
+        #     rets = [f.result() for f in futures]
+        rets = []
+        for prompt in prompts:
+            print(f"Processing prompt")
+            rets.append(self.__call__(prompt, **kwargs))
+            print(f"Processed prompt")
+        # rets = [self(prompt, **kwargs) for prompt in prompts]
         return rets
 
 

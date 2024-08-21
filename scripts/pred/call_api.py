@@ -240,16 +240,18 @@ def main():
     # Load api
     llm = get_llm(config['tokens_to_generate'])
 
-    def get_output(idx_list, index_list, input_list, outputs_list, others_list, truncation_list, length_list):
+    def get_output(outputs_parallel, idx_list, index_list, input_list, outputs_list, others_list, truncation_list, length_list):
         nonlocal llm
 
         while True:
+            print("In processing loop")
             try:
                 pred_list = llm.process_batch(prompts=input_list)
                 break
             except Exception as e:
                 traceback.print_exc()
 
+        print("exited processing loop")
         zipped_iter = zip(pred_list, idx_list, index_list, input_list,
                           outputs_list, others_list, truncation_list, length_list)
 
@@ -270,12 +272,14 @@ def main():
                 'truncation': truncation,
                 'length': length,
             }
+        return outputs_parallel
 
     threads = []
     outputs_parallel = [{} for _ in range(len(data))]
 
     batched_data = []
     batch = []
+    print(f"Total data: {len(data)}")
     for idx, data_point in enumerate(data):
         data_point['idx'] = idx
 
@@ -285,6 +289,7 @@ def main():
 
         batch.append(data_point)
 
+    print("exited data loop")
     if len(batch):
         batched_data.append(batch)
 
@@ -293,13 +298,12 @@ def main():
         # the data is processed sequentially, so we can store the start and end of current processing window
         start_idx = 0  # window: [start_idx, end_idx]
 
+        print(f"Total batches: {len(batched_data)}")
         for batch_idx, batch in tqdm(enumerate(batched_data), total=len(batched_data)):
             idx_list = [data_point['idx'] for data_point in batch]
             end_idx = idx_list[-1]  # the data in a batch is ordered
 
-            thread = threading.Thread(
-                target=get_output,
-                kwargs=dict(
+            kwargs=dict(
                     idx_list=idx_list,
                     index_list=[data_point['index'] for data_point in batch],
                     input_list=[data_point['input'] for data_point in batch],
@@ -307,24 +311,49 @@ def main():
                     others_list=[data_point.get('others', {}) for data_point in batch],
                     truncation_list=[data_point.get('truncation', -1) for data_point in batch],
                     length_list=[data_point.get('length', -1) for data_point in batch],
-                ),
-            )
-            thread.start()
-            threads.append(thread)
+                )
+            outputs_parallel = get_output(outputs_parallel, **kwargs)
+            # print("begin threading")
+            # thread = threading.Threa
+            #     target=get_output,
+            #     kwargs=dict(
+            #         idx_list=idx_list,
+            #         index_list=[data_point['index'] for data_point in batch],
+            #         input_list=[data_point['input'] for data_point in batch],
+            #         outputs_list=[data_point['outputs'] for data_point in batch],
+            #         others_list=[data_point.get('others', {}) for data_point in batch],
+            #         truncation_list=[data_point.get('truncation', -1) for data_point in batch],
+            #         length_list=[data_point.get('length', -1) for data_point in batch],
+            #     ),
+            # )
+            # thread.start()
+            # threads.append(thread)
+            # print("middle of threading stuff, before threads join")
 
-            is_last_batch = (batch_idx == len(batched_data) - 1)
+            # is_last_batch = (batch_idx == len(batched_data) - 1)
+            # print(f"Is last batch: {is_last_batch}")
+            # print(f"Length of threads: {len(threads)}")
+            # if (len(threads) == args.threads) or is_last_batch:
+            #     print("In join block")
+            #     for thread in threads:
+            #         print("before join")
+            #         thread.join()
+            #         print("after join")
+            #     threads = []
+            #     print("After threads join")
 
-            if (len(threads) == args.threads) or is_last_batch:
-                for thread in threads:
-                    thread.join()
-                threads = []
+            #     # dump the results in current processing window on disk
+            #     for idx in range(start_idx, end_idx + 1):
+            #         if len(outputs_parallel[idx]) > 0:
+            #             fout.write(json.dumps(outputs_parallel[idx]) + '\n')
 
-                # dump the results in current processing window on disk
-                for idx in range(start_idx, end_idx + 1):
-                    if len(outputs_parallel[idx]) > 0:
-                        fout.write(json.dumps(outputs_parallel[idx]) + '\n')
+            #     start_idx = end_idx + 1
+            
+            for idx in range(start_idx, end_idx + 1):
+                if len(outputs_parallel[idx]) > 0:
+                    fout.write(json.dumps(outputs_parallel[idx]) + '\n')
 
-                start_idx = end_idx + 1
+            start_idx = end_idx + 1
 
     print(f"Used time: {round((time.time() - start_time) / 60, 1)} minutes")
 

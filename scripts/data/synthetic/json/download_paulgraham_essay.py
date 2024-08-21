@@ -64,8 +64,8 @@ for url in tqdm(urls):
         except Exception as e:
             print(f"Fail download {filename}, ({e})")
 
-files_repo = glob.glob(os.path.join(temp_folder_repo,'*.txt'))
-files_html = glob.glob(os.path.join(temp_folder_html,'*.txt'))
+files_repo = sorted(glob.glob(os.path.join(temp_folder_repo,'*.txt')))
+files_html = sorted(glob.glob(os.path.join(temp_folder_html,'*.txt')))
 print(f'Download {len(files_repo)} essays from `https://github.com/gkamradt/LLMTest_NeedleInAHaystack/`') 
 print(f'Download {len(files_html)} essays from `http://www.paulgraham.com/`') 
 

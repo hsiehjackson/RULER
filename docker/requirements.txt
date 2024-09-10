@@ -11,7 +11,7 @@ transformers
 flash-attn
 accelerate
 vllm==0.4.0.post1
-huggingface_hub
+huggingface_hub==0.23.2
 causal-conv1d>=1.2.0
 mamba-ssm
 html2text

@@ -154,7 +154,7 @@ While tasks in RULER are designed to be configurable, we only evaluate the above
 @article{hsieh2024ruler,
   title={RULER: What's the Real Context Size of Your Long-Context Language Models?},
   author={Cheng-Ping Hsieh and Simeng Sun and Samuel Kriman and Shantanu Acharya and Dima Rekesh and Fei Jia and Yang Zhang and Boris Ginsburg},
-  year={2024}
+  year={2024},
   journal={arXiv preprint arXiv:2404.06654},
 }
 ```

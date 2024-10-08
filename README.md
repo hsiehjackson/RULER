@@ -47,11 +47,11 @@ This repository contains code for our paper [RULER: What’s the Real Context Si
 
 ## 💡 Requirements
 
-- Docker container: `docker pull cphsieh/ruler:0.1.0`
-- The requirements are listed in `docker/Dockerfile` and `docker/requirements.txt`. Use the following command to build the container based on NVIDIA's PyTorch container `nvcr.io/nvidia/pytorch:23.08-py3`.
+- Docker container: `docker pull cphsieh/ruler:0.2.0`
+- The requirements are listed in `docker/Dockerfile` and `docker/requirements.txt`. Use the following command to build the container based on NVIDIA's PyTorch container `nvcr.io/nvidia/pytorch:23.10-py3`.
 ```
 cd docker/
-DOCKER_BUILDKIT=1 docker build -f Dockerfile -t cphsieh/ruler:0.1.0 .
+DOCKER_BUILDKIT=1 docker build -f Dockerfile -t cphsieh/ruler:0.2.0 .
 ```
 
 

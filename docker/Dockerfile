@@ -19,8 +19,9 @@ WORKDIR /workspace/
 COPY ./requirements.txt .
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt \
-    && pip install git+https://github.com/NVIDIA/TransformerEngine.git@stable \
-    && pip install git+https://github.com/HazyResearch/flash-attention.git#subdirectory=csrc/rotary
+    && pip install git+https://github.com/HazyResearch/flash-attention.git#subdirectory=csrc/rotary \
+    && pip install causal-conv1d==1.4.0 \
+    && pip install mamba-ssm==2.2.2
     
 RUN [ "python3", "-c", "import nltk; nltk.download('punkt')"]
 

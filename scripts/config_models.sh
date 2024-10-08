@@ -35,6 +35,16 @@ MODEL_SELECT() {
             MODEL_TEMPLATE_TYPE="meta-chat"
             MODEL_FRAMEWORK="vllm"
             ;;
+        llama3.1-8b-chat)
+            MODEL_PATH="${MODEL_DIR}/llama3.1-8b-Instruct"
+            MODEL_TEMPLATE_TYPE="meta-llama3"
+            MODEL_FRAMEWORK="vllm"
+            ;;
+        jamba1.5-mini)
+            MODEL_PATH="${MODEL_DIR}/Jamba-1.5-Mini"
+            MODEL_TEMPLATE_TYPE="jamba"
+            MODEL_FRAMEWORK="vllm"
+            ;;
         gpt-3.5-turbo)
             MODEL_PATH="gpt-3.5-turbo-0125"
             MODEL_TEMPLATE_TYPE="base"

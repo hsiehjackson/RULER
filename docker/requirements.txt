@@ -12,6 +12,5 @@ tiktoken
 tenacity
 accelerate
 huggingface_hub==0.23.4
-transformers==4.44.1
-flash-attn==2.6.0.post1
+transformers==4.44.2
 vllm==0.5.4
